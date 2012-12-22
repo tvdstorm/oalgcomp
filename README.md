@@ -15,11 +15,11 @@ Copyright (c) 2012
 
 This Scala IDE Project contains the following artifacts:
 
- - [oalg.algebra.core](tree/master/src/oalg/algebra/core) The generic object algebra combinators implemented using reflection.
+ - [oalg.algebra.core](oalgcomp/tree/master/src/oalg/algebra/core) The generic object algebra combinators implemented using reflection.
 
- - [oalg.algebra.demo](tree/master/src/oalg/algebra/demo) Case studies illustrating the applicability of object algebra composition.
+ - [oalg.algebra.demo](oalgcomp/tree/master/src/oalg/algebra/demo) Case studies illustrating the applicability of object algebra composition.
 
- - [oalg.algebra.paper](tree/master/src/oalg/algebra/paper) Small example of the paper on object algebra composition.
+ - [oalg.algebra.paper](oalgcomp/tree/master/src/oalg/algebra/paper) Small example of the paper on object algebra composition.
 
 Requirements:
 - Scala 2.10.0-RC5 or later
