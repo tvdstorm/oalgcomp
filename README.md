@@ -109,10 +109,20 @@ We have tested the code with the following versions:
    - eclipse-SDK-4.2.2-linux-gtk-x86_64 (Juno)
    - Scala IDE for Eclipse 1.0.0.41
 
+Both were run using Oracle jdk-7u5-linux-x64.
+
 NB: if the Git perspective is not available in Eclipse Juno, install
 EGit via Window->Install new software. Use the following Juno update
 site: http://download.eclipse.org/releases/juno ; type git in the
 filter search box and select the top Eclipse EGit plugin. 
+
+
+## Running from the command-line
+
+The top-level Makefile can be used to compile the sources from the
+command line on Unix-like systems. This requires the location of the
+Scala (2.10.0 or later) compiler scalac or later) to be present in the
+PATH environment variables.
 
 
 
