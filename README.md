@@ -121,8 +121,10 @@ filter search box and select the top Eclipse EGit plugin.
 
 The top-level Makefile can be used to compile the sources from the
 command line on Unix-like systems. This requires the location of the
-Scala (2.10.0 or later) compiler scalac or later) to be present in the
+Scala (2.10.0 or later) compiler scalac to be present in the
 PATH environment variables.
+
+
 
 
 
