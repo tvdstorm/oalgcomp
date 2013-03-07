@@ -1,6 +1,6 @@
 
-oalgcomp: Feature-Oriented Programming with Object Algebras
-===========================================================
+Feature-Oriented Programming with Object Algebras
+=================================================
 
 This repository contains the source code artifacts belonging to the
 paper _Feature-Oriented Programming with Object Algebras_, to appear
@@ -16,17 +16,14 @@ Copyright (c) 2012-2013
 
 This Scala IDE Project contains the following artifacts:
 	
--
-  [oalg.algebra.core](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra/core)
+- [oalg.algebra.core](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra/core)
   The generic object algebra combinators implemented using reflection.
 	   
--
-  [oalg.algebra.demo](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra)
+- [oalg.algebra.demo](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra)
   Case studies illustrating the applicability of object algebra
   composition.
 
--
-  [oalg.algebra.paper](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra)
+- [oalg.algebra.paper](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra)
   Small examples of the paper on object algebra composition.
 		 
 
