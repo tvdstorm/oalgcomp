@@ -14,6 +14,31 @@ Copyright (c) 2012-2013
 - [Alex Loh](mailto:alexloh@cs.utexas.edu)
 - [William R. Cook](mailto:wcook@cs.utexas.edu)
 
+NOTE TO ECOOP'13 AEC REVIEWERS: Instead of providing a comprehensive,
+installable bundle containing all required sources, compilers and
+dependencies, this README provides detailed instructions on how to
+install the required dependencies needed for compiling and running the
+source code in this repository. Since the contribution of the paper is
+primarily in powerful programming patterns in Scala, an installable
+distribution would make less sense. We made this decision with
+permission from the Artifact Evaluation Committee (AEC) chairs of
+ECOOP'13. Should the compiler present a problem, a comprehensive
+bundle will be made available upon request.
+
+IMPORTANT: we promise to not touch this repository until the AEC
+reviewing process is finished. Should there be doubts about this, a
+cloned repository can be brought back to the state of the AEC deadline
+(8th of March 2013) using the following command:
+
+    git checkout 'master@{2013-03-08 14:00:00}'
+    
+Be sure *NOT* to fork this repository, because then you'll leak your
+identity to us and others.
+
+
+The project
+===========
+
 This Scala IDE Project contains the following artifacts:
 	
 - [oalg.algebra.core](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra/core)
@@ -26,17 +51,6 @@ This Scala IDE Project contains the following artifacts:
 - [oalg.algebra.paper](https://github.com/tvdstorm/oalgcomp/tree/master/src/oalg/algebra)
   Small examples of the paper on object algebra composition.
 		 
-NOTE: Instead of providing a comprehensive, installable bundle
-containing all required sources, compilers and dependencies, this
-README provides detailed instructions on how to install the required
-dependencies needed for compiling and running the source code in this
-repository. Since the contribution of the paper is primarily in
-powerful programming patterns in Scala, an installable distribution
-would make less sense. We made this decision with permission from the
-Artifact Evaluation Committee (AEC) chairs of ECOOP'13. Should the
-compiler present a problem, a comprehensive bundle will be made
-available upon request.
-
 
 ## Notes on running the Scala code
 
