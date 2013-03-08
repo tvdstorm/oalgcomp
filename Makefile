@@ -14,7 +14,9 @@
 # make grammar : run the grammar case-study
 # make stacks  : run the stacks example
 
-# This Makefile has been tested to work with Scala 2.10.1-RC3
+# This Makefile has been tested to work with Scala 2.10.1-RC3 on Linux
+# (Fedora Core 16 3.4.7-1 x86_64) and Mac OSX 10.7.5 with development
+# tools installed.
 
 
 SRC=src
