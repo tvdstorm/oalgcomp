@@ -36,8 +36,7 @@ Be sure *NOT* to fork this repository, because then you'll leak your
 identity to us and others.
 
 
-The project
-===========
+## The project
 
 This Scala IDE Project contains the following artifacts:
 	
