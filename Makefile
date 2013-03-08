@@ -14,11 +14,29 @@
 # make grammar : run the grammar case-study
 # make stacks  : run the stacks example
 
+# This Makefile has been tested to work with Scala 2.10.1-RC3
+
+
 SRC=src
 BIN=bin
 
-all:
-	scalac -language:higherKinds -classpath ${SRC} -d ${BIN}/ `find ${SRC} -name "*.scala"`
+ROOT=${SRC}/oalg/algebra
+
+
+SOURCES=${ROOT}/aspects/Circular.scala \
+	${ROOT}/core/Algebras.scala \
+	${ROOT}/demo/grammar/Grammar.scala \
+	${ROOT}/demo/grammar/Main.scala \
+	${ROOT}/demo/stacks/Main.scala \
+	${ROOT}/demo/stacks/Stacks.scala \
+	${ROOT}/paper/Basic.scala \
+	${ROOT}/paper/Generic.scala \
+	${ROOT}/paper/Merge.scala \
+	${ROOT}/paper/Reflective.scala \
+	${ROOT}/paper/Self.scala
+
+all: ${SOURCES}
+	scalac -language:higherKinds -classpath ${SRC} -d ${BIN} ${SOURCES}
 
 grammar:
 	scala -classpath ${BIN} oalg.algebra.demo.grammar.Main
