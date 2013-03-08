@@ -68,12 +68,13 @@ The source tree is organized as follows:
 
 Both demo packages contain a Main.scala file. After opening such a
 file in an editor. They can be run by pressing the "Run" button in the
-Eclipse tool bar (green play button). Alternatively: richt-click the
+Eclipse tool bar (green play button). Alternatively: right-click the
 editor or the file in the package explorer and select Run as-> Scala
 Application from the context menu.
 
-NB: the code requires Scala 2.10.0-RC5 or later. The Scala IDE Eclipse
-update sites used contain a suitable version of the Scala compiler.
+NB: the code requires Scala 2.10.0 or later. The Scala IDE Eclipse
+update sites used below contain a suitable version of the Scala
+compiler.
 
 ## Installing Eclipse and the Scala IDE
 
@@ -99,12 +100,12 @@ Click Ok. From the list of items hosted on the update site check
 Finish. After some time, you're asked to restart Eclipse. Do
 this. When Eclipse comes back up, click Yes when asked to Run Scala
 Setup Diagnostics. You're now set to clone the oalgcomp repository and
-import our Scala sources.
+import the oalgcomp project (see above).
 
 We have tested the code with the following versions:
 
 - Indigo:
-   - eclipse-java-indigo-SR2-linux-gtk-x86_64
+   - eclipse-java-indigo-SR2-linux-gtk-x86_64 
    - Scala IDE for Eclipse3.0.0.rc2-2_10-201303061959
 - Juno:
    - eclipse-SDK-4.2.2-linux-gtk-x86_64 (Juno)
