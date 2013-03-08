@@ -46,7 +46,8 @@ To check out the the project and run the demos, you need to clone the
 oalgcomp Git repository. Go to Window->Open Perspective->Other..., and
 select Git Repository Exploring. (If this perspective does not show,
 please see below how to install EGit.) In the left-hand side of the
-Git perspective, click on link Clone a Git repository. Enter or paste
+Git perspective, click on the link "Clone a Git repository" or click
+the button in the tool bar with blue curved arrow. Enter or paste
 https://github.com/tvdstorm/oalgcomp.git in the URI text-field. Click
 Next, and Next (checking out master) and Finish. The repository should
 now be listed under "Git Repositories". Expand the tree view of
@@ -112,7 +113,7 @@ We have tested the code with the following versions:
 Both were run using Oracle jdk-7u5-linux-x64.
 
 NB: if the Git perspective is not available in Eclipse Juno, install
-EGit via Window->Install new software. Use the following Juno update
+EGit via Help->Install new software. Use the following Juno update
 site: http://download.eclipse.org/releases/juno ; type git in the
 filter search box and select the top Eclipse EGit plugin. 
 
