@@ -309,9 +309,7 @@ object Main extends App {
   def testSF() = {
     import StackComb._ 
     
-    //BEGIN_S_CLIENT
     val o = stack[Stack](fclose(sf))
-    //END_S_CLIENT
     o.empty()
     o.push('m')
     o.push('a')
@@ -388,14 +386,12 @@ object Main extends App {
   def testAll() = {
     import StackComb._ 
    
-    //BEGIN_SCL_CLIENT
     val o : Stack with Counter with Lock = 
       fclose(merge[Stack with Counter,Lock,Stack with Counter with Lock](LiftSCLF,
           merge[Stack,Counter,Stack with Counter with Lock](LiftSCF3,sf,cf),lf)).stack()
     o.empty()
     println("Size: " + o.size())
     println("Unlocked: " + o.is_unlocked)
-    //END_SCL_CLIENT
     o.push('m')
     println("Size: " + o.size())
     println("Unlocked: " + o.is_unlocked)
