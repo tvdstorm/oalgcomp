@@ -32,7 +32,7 @@ README provides detailed instructions on how to install the required
 dependencies needed for compiling and running the source code in this
 repository. Since the contribution of the paper is primarily in
 powerful programming patterns in Scala, an installable distribution
-would make less sense. We made this decision with permission of the
+would make less sense. We made this decision with permission from the
 Artifact Evaluation Committee (AEC) chairs of ECOOP'13. Should the
 compiler present a problem, a comprehensive bundle will be made
 available upon request.
