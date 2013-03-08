@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012
+ * Copyright (c) 2012-2013
  * - Bruno C.d.S. Oliveira (oliveira@comp.nus.edu.sg)
  * - Tijs van der Storm (storm@cwi.nl)
  * - Alex Loh (alexloh@cs.utexas.edu)
