@@ -18,6 +18,7 @@ import oalg.algebra.core.Algebras.Open
 import oalg.algebra.core.Algebras.SelfFAlg
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.MutableList
+import java.io.Writer
 
 object Grammar {
   
@@ -250,14 +251,15 @@ object Grammar {
     }
   }  
   
-  class Trace extends (Parse => Parse) {
+  class Trace(w: Writer) extends (Parse => Parse) {
     type G = Map[String, Parse]
     var indent = 0;
     override def apply(p: Parse): Parse = new Parse {
 	  def parse(g: G, input: Seq[String], cnt: Seq[String] => Unit): Unit = {
-	    print("[")
+	    w.write("[")
 	    p.parse(g, input, cnt)
-	    print("]")
+	    w.write("]")
+	    w.flush();
 	  }
     }
   }
