@@ -135,9 +135,6 @@ class GrammarSuite extends FunSuite {
 
   
   test("Parsing with profiling with printing") {
-    println(">>>> Parsing with Profiling and printing")
-    
-    
     val step1 = merge[Parse, Profile, PPP](
                   LiftParseProfile, // variance issue if not use PPP 
                   decorate(grammarParse[PPP], new Memo),
@@ -235,46 +232,28 @@ class GrammarSuite extends FunSuite {
     return fs2.size <= 2
   }
   
-  def runAlg(fs: Set[String], alg: GrammarAlg[All,All], trace: Writer) {
+  def runGrammar(fs: Set[String], grammar: Map[String,All], 
+		  	fixt: AllConfFixture) {
     if (fs.contains("Parse")) {
-      val g1 = makeIterA[Parse](alg.asInstanceOf[GrammarAlg[Parse,Parse]]);
-      val g2 = makeLeftRec[Parse](alg.asInstanceOf[GrammarAlg[Parse,Parse]]);
-      
-      assert(parse(g1, g1("A"), as) == true)
-      assert(parse(g2, g2("Exp"), exp) == true)
-     
+      assert(parse(grammar, grammar(fixt.start), fixt.src) == true)
       if (fs.contains("Trace")) {
-        // FIXME: the trace is used for both grammars :-(
-        assert(trace.toString() != "");
-      }
-      
+        assert(fixt.trace.toString() != "");
+      }      
       if (fs.contains("Profile")) {
-        assert(g1("A").asInstanceOf[Profile].profile(g1("A").asInstanceOf[Profile]) > 0)
-        assert(g2("Exp").asInstanceOf[Profile].profile(g2("Exp").asInstanceOf[Profile]) > 0)
+        assert(grammar(fixt.start).profile(grammar(fixt.start)) > 0)
       }
     }
     if (fs.contains("Print")) {
-      val g1 = makeIterA[Print](alg.asInstanceOf[GrammarAlg[Print,Print]])
-      val g2 = makeLeftRec[Print](alg.asInstanceOf[GrammarAlg[Print,Print]])
-      //assert(g1("A").toString() == "()|(\"a\" A)")
-      //assert(g2("Exp").toString() == "(Exp \"+\" Exp)|((Exp \"*\" Exp)|(((\"?\")? Exp)|(\"x\")))")
+      assert(grammar(fixt.start).toString() == fixt.text)
     }
     if (fs.contains("Nullable")) {
-      val g = alg.asInstanceOf[GrammarAlg[Nullable,Nullable]]
-      val g1 = makeIterA[Nullable](g)
-      val g2 = makeLeftRec[Nullable](g)
-      assert(g1("A").nullable(g1) == true)
-      assert(g2("Exp").nullable(g2) == false)
+      assert(grammar(fixt.start).nullable(grammar) == fixt.nullable)
     }
     if (fs.contains("First")) {
-      val g = alg.asInstanceOf[GrammarAlg[Nullable with First, Nullable with First]]
-      val g1 = makeIterA[Nullable with First](g)
-      val g2 = makeLeftRec[Nullable with First](g)
-      assert(g1("A").first(g1) == Set("a"))
-      assert(g2("Exp").first(g2) == Set("?", "x"))
+      assert(grammar(fixt.start).first(grammar) == fixt.first)
     }
-  }
-   
+  } 
+  
   def makeAlgebra(fs: Set[String], trace: Writer): GrammarAlg[All,All] = {
      var cur: Any = null;
      val fss = fs.toList.sorted
@@ -302,13 +281,14 @@ class GrammarSuite extends FunSuite {
          decorate(grammarParse[All], new Memo)
        }
        cur = combine[Nullable, Parse, All](
-           cur.asInstanceOf[OpenGrammarAlg[All, Nullable]], p)
+               cur.asInstanceOf[OpenGrammarAlg[All, Nullable]], p)
      }
      
      if (fss.contains("Nullable") && fss.contains("Print")) {
-       cur = combine[Nullable, Print, All](
-          cur.asInstanceOf[OpenGrammarAlg[All, Nullable]],
-          grammarPrint[All])
+       cur = combine[Print, Nullable, All](
+          grammarPrint[All],
+          cur.asInstanceOf[OpenGrammarAlg[All, Nullable]]
+          )
      }
      
      if (fss.contains("Nullable") && fss.contains("First")) {
@@ -325,9 +305,10 @@ class GrammarSuite extends FunSuite {
      }
      
      if (fss.contains("Parse") && fss.contains("Print")) { 
-        cur = combine[Parse, Print, All](
-            cur.asInstanceOf[OpenGrammarAlg[All, Parse]],
-            grammarPrint[All])
+        cur = combine[Print, Parse, All](
+            grammarPrint[All],
+            cur.asInstanceOf[OpenGrammarAlg[All, Parse]]
+            )
      }
 
      if (cur == null) {
@@ -336,14 +317,46 @@ class GrammarSuite extends FunSuite {
      return fclose(cur.asInstanceOf[OpenGrammarAlg[All, All]]);
   }
   
-  test("Test all valid configurations") {
+  
+  case class AllConfFixture(start: String,
+		  	src: Seq[String],
+		  	parsed: Boolean, 
+		  	text: String, 
+		  	trace: Writer,
+		  	nullable: Boolean, 
+		  	first: Set[String]) 
+  
+  
+  def iterAFixture(): AllConfFixture = new AllConfFixture(
+         "A",
+         as,
+         true,
+         "()|(\"a\" A)",
+         new StringWriter,
+         true,
+         Set("a"))
+
+  def leftRecFixture(): AllConfFixture = new AllConfFixture(
+         "Exp",
+         exp,
+         true,
+         "(Exp \"+\" Exp)|((Exp \"*\" Exp)|(((\"?\")? Exp)|(\"x\")))",
+         new StringWriter,
+         false,
+         Set("?", "x")) 
+  
+  def testCombination[X](maker: GrammarAlg[X, X] => Map[String,X], comb: Set[String], fixt: AllConfFixture) {
+    val alg = makeAlgebra(comb, fixt.trace)
+    val grammar = maker(alg.asInstanceOf[GrammarAlg[X,X]]);
+    runGrammar(comb, grammar.asInstanceOf[Map[String,All]], fixt)
+  }
+		  	
+  test("All valid configurations") {
      val fs = Set("Parse", "Print", "Profile", "Trace", "Nullable", "First")
      val combs = powerset[String](fs).filter(isValid);
-     for (s <- combs) {
-       println("Testing configuration: " + s)
-       val writer = new StringWriter
-       val alg = makeAlgebra(s, writer)
-       runAlg(s, alg, writer)
+     for (comb <- combs) {
+       testCombination(makeIterA, comb, iterAFixture())
+       testCombination(makeLeftRec, comb, leftRecFixture())
      }
    }
   
