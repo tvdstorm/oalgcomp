@@ -18,7 +18,6 @@ import oalg.algebra.demo.grammar.Grammar.grammarPrint
 import oalg.algebra.demo.grammar.Grammar.grammarParse
 import oalg.algebra.demo.grammar.Grammar.grammarNullable
 import oalg.algebra.demo.grammar.Grammar.grammarProfile
-
 import oalg.algebra.demo.grammar.Grammar.Nullable
 import oalg.algebra.demo.grammar.Grammar.Print
 import oalg.algebra.demo.grammar.Grammar.Parse
@@ -28,12 +27,11 @@ import oalg.algebra.demo.grammar.Grammar.Memo
 import oalg.algebra.demo.grammar.Grammar.Trace
 import oalg.algebra.demo.grammar.Grammar.CircFirst
 import oalg.algebra.demo.grammar.Grammar.CircNullable
-  
 import oalg.algebra.demo.grammar.Grammar.GrammarAlg
 import oalg.algebra.demo.grammar.Grammar.OpenGrammarAlg
 import oalg.algebra.demo.grammar.Grammar.GrammarComb._
-
 import oalg.algebra.core.Algebras.Lifter
+import java.io.PrintWriter
 
 class ParseWithProfile(self: => Parse with Profile, pa: Parse, pr: Profile) extends Parse with Profile {
   type G = Map[String, Parse]
@@ -179,7 +177,8 @@ object Main extends App {
        cur = decorate(grammarParse[Parse], new Memo)
        // tracing should be innermost
        if (fss.contains("Trace")) {
-         cur = decorate(cur.asInstanceOf[OpenGrammarAlg[Parse,Parse]], new Trace)
+         val out = new PrintWriter(System.out)
+         cur = decorate(cur.asInstanceOf[OpenGrammarAlg[Parse,Parse]], new Trace(out))
        }
      }
      if (fss.contains("Print") && cur == null) {
@@ -188,7 +187,7 @@ object Main extends App {
      
      if (fss.contains("Nullable") && fss.contains("Parse")) {
        val p: OpenGrammarAlg[All, Parse] = if (fss.contains("Trace")) {
-         decorate(decorate(grammarParse[All], new Memo), new Trace)
+         decorate(decorate(grammarParse[All], new Memo), new Trace(new PrintWriter(System.out)))
        }
        else {
          decorate(grammarParse[All], new Memo)
@@ -279,8 +278,9 @@ object Main extends App {
     
     
     println(">>>> Parsing with Tracing")
-    testParse(makeIterA[Parse], fclose(decorate(grammarParse[Parse], new Trace)), "A", as)
-    testParse(makeLeftRec[Parse], fclose(decorate(decorate(grammarParse[Parse], new Memo), new Trace)), "Exp", exp)
+    val out = new PrintWriter(System.out)
+    testParse(makeIterA[Parse], fclose(decorate(grammarParse[Parse], new Trace(out))), "A", as)
+    testParse(makeLeftRec[Parse], fclose(decorate(decorate(grammarParse[Parse], new Memo), new Trace(out))), "Exp", exp)
 
     println(">>>> Parsing with Profiling and printing")
     
